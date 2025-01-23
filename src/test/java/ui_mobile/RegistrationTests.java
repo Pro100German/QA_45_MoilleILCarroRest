@@ -10,6 +10,7 @@ import screens.SearchScreen;
 import screens.SplashScreens;
 
 import java.util.Random;
+import static helper.RandomUtils.*;
 
 public class RegistrationTests extends AppiumConfig {
 
@@ -24,13 +25,14 @@ public class RegistrationTests extends AppiumConfig {
     public void registrationPositiveTest(){
         int i  = new Random().nextInt(1000)+1000;
         UserDto userDto = UserDto.builder()
-                .firstName("Ger")
-                .lastName("Kogan")
+                .firstName(generateString(5))
+                .lastName(generateString(10))
                 .username("novigod"+i+"@mail.com")
                 .password("Novigod123!")
                 .build();
         registrationScreen = new RegistrationScreen(driver);
         registrationScreen.typeRegistrationForm(userDto);
+        Assert.assertTrue(registrationScreen.validateMassageSuccess("Registration success!"));
 
     }
 }
