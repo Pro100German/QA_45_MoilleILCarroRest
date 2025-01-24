@@ -19,6 +19,11 @@ public class BaseScreen {
 
     @FindBy(xpath = "/hierarchy/android.widget.Toast")
     AndroidElement popUpMessageSuccess;
+    @FindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView")
+    AndroidElement popUpMessageErrorFillingTheField;
+    @FindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView")
+    AndroidElement popUpMessageErrorPasswordIncorrect;
+
     public boolean textInElementPresent(AndroidElement element, String text, int time){
       try{
           return new WebDriverWait(driver, time)

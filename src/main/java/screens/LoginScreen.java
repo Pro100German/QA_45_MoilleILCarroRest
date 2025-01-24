@@ -23,4 +23,10 @@ public class LoginScreen extends BaseScreen{
         inputPassword.sendKeys(user.getPassword());
         btnYalla.click();
     }
+    public boolean validateMassageSuccess(String message){
+        return textInElementPresent(popUpMessageErrorFillingTheField,message,5);
+    }
+    public boolean validateMassagePasswordIncorrect(String message){
+        return textInElementPresent(popUpMessageErrorPasswordIncorrect,message,5);
+    }
 }

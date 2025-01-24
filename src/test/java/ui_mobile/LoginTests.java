@@ -2,6 +2,7 @@ package ui_mobile;
 
 import config.AppiumConfig;
 import dto.UserDto;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import screens.LoginScreen;
@@ -26,5 +27,24 @@ public class LoginTests extends AppiumConfig {
                 .password("German1234!")
                 .build());
     }
+    @Test
+    public void loginNegativeTestWrongEmailSpase(){
+        loginScreen = new LoginScreen(driver);
+        loginScreen.login(UserDto.builder()
+                .username(" ")
+                .password("German1234!")
+                .build());
+        Assert.assertTrue(loginScreen.validateMassageSuccess("All fields must be filled and agree terms"));
+    }
+    @Test
+    public void loginNegativeTestWrongPasswordIncorrect(){
+        loginScreen = new LoginScreen(driver);
+        loginScreen.login(UserDto.builder()
+                .username("myphone@gmail.com")
+                .password("German1234@")
+                .build());
+        Assert.assertTrue(loginScreen.validateMassagePasswordIncorrect("Login or Password incorrect"));
+    }
+
 
 }
