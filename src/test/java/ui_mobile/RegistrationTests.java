@@ -5,6 +5,7 @@ import dto.UserDto;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import screens.ErrorScreen;
 import screens.RegistrationScreen;
 import screens.SearchScreen;
 import screens.SplashScreens;
@@ -33,7 +34,7 @@ public class RegistrationTests extends AppiumConfig {
                 .build();
         registrationScreen = new RegistrationScreen(driver);
         registrationScreen.typeRegistrationForm(userDto);
-        Assert.assertTrue(registrationScreen.validateMassageSuccess("Registration success!"));
+        Assert.assertTrue(new SearchScreen(driver).validateMassageSuccess("Registration success!"));
 
     }
 
@@ -49,6 +50,7 @@ public class RegistrationTests extends AppiumConfig {
         registrationScreen = new RegistrationScreen(driver);
         registrationScreen.typeRegistrationForm(userDto);
         Assert.assertTrue(registrationScreen.validateMassageErrorEmail("{username=must be a well-formed email address}"));
+        //Assert.assertTrue(new ErrorScreen(driver).validateErrorMessage("User already exists"));
     }
     @Test
     public void registrationNegativeTestWrongPassword() {

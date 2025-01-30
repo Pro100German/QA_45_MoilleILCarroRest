@@ -33,9 +33,7 @@ public class RegistrationScreen extends BaseScreen{
         inputBtnYalla.click();
     }
 
-    public boolean validateMassageSuccess(String message){
-        return textInElementPresent(popUpMessageSuccess,message,5);
-    }
+
     public boolean validateMassageErrorEmail(String message){
         return textInElementPresent(popUpMessageErrorFillingTheField,message,5);
     }

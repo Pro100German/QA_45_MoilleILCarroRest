@@ -26,6 +26,7 @@ public class LoginTests extends AppiumConfig {
                 .username("myphone@gmail.com")
                 .password("German1234!")
                 .build());
+        Assert.assertTrue(new SearchScreen(driver).validateMassageSuccess("Login success"));
     }
     @Test
     public void loginNegativeTestWrongEmailSpase(){
