@@ -4,6 +4,7 @@ import dto.CarDto;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,6 +35,11 @@ public class AddNewCarScreen extends BaseScreen {
     AndroidElement inputSeats;
     @FindBy(id = "com.telran.ilcarro:id/editAbout")
     AndroidElement inputAbout;
+    @FindBy(id = "com.telran.ilcarro:id/addCarBtn")
+    AndroidElement btnAddCar;
+
+    @FindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TextView\n")
+    AndroidElement popUpMessageError;
 
     public void addNewCar(CarDto car) {
         inputSerialNumber.sendKeys(car.getSerialNumber());
@@ -46,7 +52,9 @@ public class AddNewCarScreen extends BaseScreen {
         int width = driver.manage().window().getSize().getWidth();
         System.out.println(height + "X" +width);
         TouchAction<?> touchAction = new TouchAction<>(driver);
-        //touchAction.longPress()
+        touchAction.longPress(PointOption.point(5, height / 6 * 5))
+                .moveTo(PointOption.point(5, height / 6))
+                .release().perform();
 
 
         inputCarClass.sendKeys(car.getCarClass());
@@ -57,6 +65,7 @@ public class AddNewCarScreen extends BaseScreen {
         inputYear.sendKeys(car.getYear());
         inputSeats.sendKeys(car.getSeats() + "");
         inputAbout.sendKeys(car.getAbout());
+        btnAddCar.click();
     }
 
     private void typeFuel(String fuel) {
@@ -66,5 +75,8 @@ public class AddNewCarScreen extends BaseScreen {
                         (By.xpath("//*[@text='"+fuel+"']"))).click();
         //     "//*[@text='"+  fuel +"']"
 
+    }
+    public boolean validateMassageSuccess(String message) {
+        return textInElementPresent(popUpMessageError, message, 5);
     }
 }
